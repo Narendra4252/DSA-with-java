@@ -1,0 +1,38 @@
+public class Solution {
+
+    public static boolean isvalid(int[]arr , int mid , int m){
+        int count = 1 ;
+        int sum  = arr[0];
+        for(int i = 1 ; i < arr.length ; i++){
+            if(sum + arr[i] > mid){
+                count++;
+                sum = arr[i];
+            }else{
+                sum += arr[i];
+            }
+        }
+        return count <= m ;
+    }
+    
+    public static int shipWithinDays(int[] weights, int days) {
+        int s = weights[0];
+        int e = weights[0];
+        int r = -1 ;
+        int m = weights.length;
+        for(int i = 1 ; i < weights.length ; i++){
+            s = Math.max(weights[i] , s);
+            e += weights[i];
+        }
+        if(days > m) return r ;
+        while(s <= e){
+            int mid = s + (e-s) / 2 ;
+            if(isvalid(weights,mid,days)){
+                r = mid ;
+                e = mid - 1;
+            }else{
+                s = mid + 1;
+            }
+        }
+        return r ;
+    }
+}
