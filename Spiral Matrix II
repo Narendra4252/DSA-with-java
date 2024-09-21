@@ -1,0 +1,32 @@
+class Solution {
+    public int[][] generateMatrix(int n) { 
+         int r = n ;
+        int c = n ;
+         int[][] matrix = new int[r][c];
+        int minr = 0 ;
+        int minc = 0 ;
+        int maxr = matrix.length - 1 ;
+        int maxc = matrix[0].length-1 ;
+        int N = matrix.length * matrix[0].length ;
+        int num = 1 ;
+        while(minr <= maxr && minc <= maxc && num <= N){
+            for(int i = minc ; i <= maxc ; i++){
+                matrix[minr][i] = num++ ;
+            }
+            minr++ ;
+            for(int j = minr ; j <= maxr ; j++ ){
+                matrix[j][maxc] = num++ ;
+            }
+            maxc--;
+            for(int k = maxc ; k >= minc ; k--){
+                matrix[maxr][k] = num++ ;
+            }
+            maxr--;
+            for(int l = maxr ; l >= minr ; l--){
+                matrix[l][minc] = num++ ;
+            }
+            minc++;
+        }
+        return matrix ;
+    }
+}
