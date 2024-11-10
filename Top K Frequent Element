@@ -1,0 +1,35 @@
+class Solution {
+    class Pair implements Comparable <Pair> {
+        int ele , freq ;
+        Pair(int ele , int freq){
+            this.ele = ele ;
+            this.freq = freq ;
+        }
+        public int compareTo(Pair that){
+            return this.freq > that.freq ? 1 : -1 ; 
+        }
+    }
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        PriorityQueue<Pair> pq = new PriorityQueue<>();
+       for(int a : nums){
+        if( map.containsKey(a)){
+            map.put(a,map.get(a)+1);
+        }else{
+            map.put(a,1);
+        }
+       }
+
+       for(int a:map.keySet()){
+         pq.offer(new Pair(a,map.get(a)));
+         if(pq.size()>k){
+            pq.poll();
+         }
+       }
+       int[]temp = new int[k];
+       for(int i = 0 ; i < temp.length ; i++){
+        temp[i] = pq.poll().ele;
+       }
+       return temp ;
+    }
+}
